@@ -1,8 +1,8 @@
 {
   "name": "task-scheduling-nestjs",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "A task scheduling application built with NestJS, following a simple and clean architecture.",
+  "author": "Luiz Amorim <amorimfelipe.lfra@gmail.com>",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
