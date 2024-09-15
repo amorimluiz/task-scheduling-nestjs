@@ -1,0 +1,46 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    environment:
+      - APP_PORT=${APP_PORT}
+    ports:
+      - '${APP_PORT}:${APP_PORT}'
+    depends_on:
+      - db
+    volumes:
+      - ./src:/app/src
+    networks:
+      - app-network
+  db:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - "${ADMINER_PORT}:${ADMINER_PORT}"
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+volumes:
+  mysql-data:
+
+networks:
+  app-network:
+    driver: bridge
